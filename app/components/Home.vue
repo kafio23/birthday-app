@@ -4,10 +4,17 @@
       <Label class="bar-text" text="Cumpleaños" style="font-size: 25" />
     </ActionBar>
 
-    <GridLayout @loaded="load()">
-      <ListView for="item in listOfItems" @itemTap="onItemTap">
-        <v-template>
-          <GridLayout class="main-container" columns="*,*" rows="*">
+    <ScrollView>
+      <GridLayout class="list-container" columns="*" rows="*" @loaded="load()">
+        <StackLayout>
+          <GridLayout
+            columns="*,*"
+            rows="*"
+            v-for="(item, i) in listOfItems"
+            :key="i"
+            class="item-container"
+            @itemTap="onItemTap"
+          >
             <Label
               class="item-text"
               col="0"
@@ -25,15 +32,15 @@
               :text="item.birthday"
             />
           </GridLayout>
-        </v-template>
-      </ListView>
-      <!-- <Label class="info" textWrap="true">
+        </StackLayout>
+        <!-- <Label class="info" textWrap="true">
         <FormattedString>
           <Span class="fas" text.decode="&#xf135; " />
           <Span :text="message" />
         </FormattedString>
       </Label> -->
-    </GridLayout>
+      </GridLayout>
+    </ScrollView>
   </Page>
 </template>
 
@@ -58,7 +65,7 @@ export default {
 
     listOfItems: function() {
       return this.itemList;
-    },
+    }
   },
   methods: {
     ...mapActions(["loadItems"]),
