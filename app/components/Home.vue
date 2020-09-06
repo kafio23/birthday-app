@@ -6,6 +6,7 @@
 
     <ScrollView>
       <GridLayout class="main-container" columns="*" rows="*" @loaded="load()">
+        <!--TODO: Change from list to Month blocks-->
         <StackLayout class="list-container">
           <GridLayout
             columns="*,*"
@@ -22,6 +23,7 @@
               alignSelf="center"
               style="font-size: 20"
               :text="item.name"
+              textWrap="true"
             />
             <Label
               class="item-text"
@@ -29,7 +31,10 @@
               row="0"
               alignSelf="center"
               style="font-size: 20"
-              :text="item.birthday"
+              :text="
+                `${item.currentBirthDayName}, ${item.birthDay} ${item.birthMonthName}`
+              "
+              textWrap="true"
             />
           </GridLayout>
         </StackLayout>
