@@ -1,7 +1,7 @@
 import * as types from "./mutationTypes";
-import AdoService from "@/services/adoService";
+import SheetsService from "@/services/sheetsService";
 
-const adoService = new AdoService();
+const sheetsService = new SheetsService();
 
 export const loadItems = (
   { commit },
@@ -11,7 +11,7 @@ export const loadItems = (
   console.log(task);
     return new Promise((resolve, reject) => {
       commit(types.ADD_PROCESSING_TASK, task);
-      adoService
+      sheetsService
         .load({ searchText: params.searchText, byType: params.byType })
         .then(items => {
           commit(types.SET_ITEMS, items);

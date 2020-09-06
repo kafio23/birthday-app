@@ -3,7 +3,7 @@ import BackendService from "./backendService";
 
 const appSettings = require("application-settings");
 
-export default class AdoService extends BackendService {
+export default class SheetsService extends BackendService {
     load(params) {
         console.log(params);
         return http

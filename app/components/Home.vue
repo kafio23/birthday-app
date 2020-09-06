@@ -45,9 +45,9 @@
 </template>
 
 <script>
-import AdoService from "@/services/adoService";
+import SheetsService from "@/services/sheetsService";
 
-const adoService = new AdoService();
+const sheetsService = new SheetsService();
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 
