@@ -1,12 +1,12 @@
 <template>
   <Page>
-    <ActionBar>
+    <ActionBar backgroundColor="#801CEC">
       <Label class="bar-text" text="Cumpleaños" style="font-size: 25" />
     </ActionBar>
 
     <ScrollView>
-      <GridLayout class="list-container" columns="*" rows="*" @loaded="load()">
-        <StackLayout>
+      <GridLayout class="main-container" columns="*" rows="*" @loaded="load()">
+        <StackLayout class="list-container">
           <GridLayout
             columns="*,*"
             rows="*"
