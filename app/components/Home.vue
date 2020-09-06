@@ -6,8 +6,9 @@
 
     <ScrollView>
       <GridLayout class="main-container" columns="*" rows="*" @loaded="load()">
+        <ActivityIndicator :visibility="isBusy ? 'visible' : 'collapsed'" :busy="isBusy ? 'true' : 'false'"/>
         <!--TODO: Change from list to Month blocks-->
-        <StackLayout class="list-container">
+        <StackLayout :visibility="isBusy ? 'collapsed' : 'visible'" class="list-container">
           <GridLayout
             columns="*,*"
             rows="*"
@@ -51,10 +52,12 @@
 
 <script>
 import SheetsService from "@/services/sheetsService";
-
-const sheetsService = new SheetsService();
+import { constants } from "@/constants";
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
+
+const sheetsService = new SheetsService();
+const months = constants.MONTHS; 
 
 export default {
   data() {
@@ -82,7 +85,7 @@ export default {
         })
         .catch(error => {
           console.error(error);
-          alert("An error occurred loading your Ado list.");
+          alert("An error occurred loading items list.");
         });
     }
   }
