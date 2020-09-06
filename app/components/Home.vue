@@ -6,38 +6,54 @@
 
     <ScrollView>
       <GridLayout class="main-container" columns="*" rows="*" @loaded="load()">
-        <ActivityIndicator :visibility="isBusy ? 'visible' : 'collapsed'" :busy="isBusy ? 'true' : 'false'"/>
-        <!--TODO: Change from list to Month blocks-->
-        <StackLayout :visibility="isBusy ? 'collapsed' : 'visible'" class="list-container">
-          <GridLayout
-            columns="*,*"
-            rows="*"
-            v-for="(item, i) in listOfItems"
+        <ActivityIndicator
+          :visibility="isBusy ? 'visible' : 'collapsed'"
+          :busy="isBusy ? 'true' : 'false'"
+        />
+        <StackLayout
+          :visibility="isBusy ? 'collapsed' : 'visible'"
+          class="list-container"
+        >
+          <StackLayout
+            v-for="(month, i) in monthsList"
             :key="i"
             class="item-container"
             @itemTap="onItemTap"
           >
             <Label
-              class="item-text"
-              col="0"
-              row="0"
+              class="item-title"
               alignSelf="center"
               style="font-size: 20"
-              :text="item.name"
+              :text="month"
               textWrap="true"
+              marginBottom="5"
             />
-            <Label
-              class="item-text"
-              col="1"
-              row="0"
-              alignSelf="center"
-              style="font-size: 20"
-              :text="
-                `${item.currentBirthDayName}, ${item.birthDay} ${item.birthMonthName}`
-              "
-              textWrap="true"
-            />
-          </GridLayout>
+            <FlexboxLayout
+              v-for="(item, j) in listOfItems"
+              :key="j"
+              @itemTap="onItemTap"
+              :visibility="(item.birthMonth-1) == i ? 'visible' : 'collapsed'"
+            >
+              <Label
+                class="item-text"
+                alignSelf="center"
+                style="font-size: 20"
+                :text="item.name"
+                textWrap="true"
+                width="40%"
+              />
+              <Label
+                class="item-text"
+                alignSelf="center"
+                style="font-size: 20"
+                :text="
+                  ` ${item.currentBirthDayName}, ${item.birthDay}`
+                "
+                textWrap="true"
+                width="60%"
+              />
+            </FlexboxLayout>
+          </StackLayout>
         </StackLayout>
         <!-- <Label class="info" textWrap="true">
         <FormattedString>
@@ -57,12 +73,13 @@ import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 
 const sheetsService = new SheetsService();
-const months = constants.MONTHS; 
+const months = constants.MONTHS;
 
 export default {
   data() {
     return {
-      isBusy: true
+      isBusy: true,
+      monthsList: months
     };
   },
   computed: {
